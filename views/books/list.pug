@@ -1,0 +1,30 @@
+extends ../base.pug
+
+block content
+  h3 Books
+
+  a(href="/books/add", class='btn btn-success btn-sm')
+    i.glyphicon.glyphicon-plus
+    span  Add book
+
+  a(href="/sentiments/add", class='btn btn-success btn-sm')
+    i.glyphicon.glyphicon-plus
+    span  Add Text Input
+
+  each book in books
+    .media
+      a(href=`/books/${book.id}`)
+        .media-left
+            img(src=book.imageUrl || "http://placekitten.com/g/128/192")
+        .media-body
+          h4= book.title
+          p= book.author
+
+  if !books.length
+    p No books found.
+
+  if nextPageToken
+    nav
+      ul.pager
+        li
+          a(href=`?pageToken=${encodeURIComponent(nextPageToken)}`) More

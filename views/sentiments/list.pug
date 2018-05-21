@@ -1,0 +1,44 @@
+extends ../base.pug
+
+block content
+  h3 Sentiment Analysis
+  p
+   b Score: &nbsp;
+   | It is the sentiment range between -1.0 (negative) and 1.0 (positive) and corresponds to the overall emotional leaning of the text.
+  p
+   b Magnitude: &nbsp;
+   | It indicates the overall strength of emotion (both positive and negative) for the given text, between 0 and +infinity.
+  br
+  a(href="/sentiments/add", class='btn btn-success btn-sm')
+    i.glyphicon.glyphicon-plus
+    span  Add Text
+
+  h1
+
+  if !sentiments.length
+    p No sentiment text found.
+  else
+    table.table.table-stripped(style='width:100%', border='1')
+     thead
+       tr
+          th(style='width:70%') Email Text
+          th(style='width:10%') Magnitude
+          th(style='width:10%') Score
+          th(style='width:10%') Method
+     tbody
+        each sentiment in sentiments
+          tr
+            td
+              a(href=`/sentiments/${sentiment.id}`) #{sentiment.input}
+            td(style="text-align:right")
+              a(href=`/sentiments/${sentiment.id}`) #{parseFloat(sentiment.magnitude).toFixed(2)}
+            td(style="text-align:right")
+              a(href=`/sentiments/${sentiment.id}`) #{parseFloat(sentiment.score).toFixed(2)}
+            td(style="text-align:center")
+              a(href=`/sentiments/${sentiment.id}`) #{sentiment.scoreType == "1" ? "A" : "M"}
+
+  if nextPageToken
+    nav
+      ul.pager
+        li
+          a(href=`?pageToken=${encodeURIComponent(nextPageToken)}`) More

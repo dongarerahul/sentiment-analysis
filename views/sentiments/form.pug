@@ -1,0 +1,22 @@
+extends ../base.pug
+
+block content
+  h3 #{action} Sentiment Text
+  form(method="POST", enctype="multipart/form-data")
+    .form-group
+      label(for="input") Email Text
+      textArea.form-control(rows="15", type="text", name="input", id="input", readonly=ro, placeholder="Please Enter Text !")
+        | #{sentiment.input}
+    .form-group
+      label(for="score") Score
+      input.form-control(name="score", id="score", value=sentiment.score, readonly=ro, placeholder="Please Enter Number ranging from -1 to +1 ")
+    .form-group
+      label(for="score") Magnitude
+      input.form-control(name="magnitude", id="magnitude", value=sentiment.magnitude, readonly=ro, placeholder="Please Enter Number ranging from 0 to +Infinity")
+    .form-group
+      label(for="scoreType") Score Type
+      select#propertyType.select.form-control.input-lg(name="scoreType", readonly=ro)
+        option(value='0', selected= sentiment.scoreType==0) Manual
+        option(value='1', selected= sentiment.scoreType==1) Auto
+    button.btn.btn-success(type="submit") Save
+    a(href='/sentiments').button.btn.btn-cancel Cancel

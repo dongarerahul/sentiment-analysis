@@ -1,0 +1,14 @@
+extends ../base.pug
+
+block content
+  h3 Sentiment Analysis Administration
+    small
+
+  br
+  h5 To retrigger model training, please click buttion below:
+  br
+
+  .btn-group
+      a(href="/admin/job", class='btn btn-primary btn-sm')
+        i.glyphicon.glyphicon-triangle-right
+        span  Run Algorithm
